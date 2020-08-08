@@ -55,7 +55,7 @@ while ($loop) {
 }
 
 $qqid = Read-Host '请输入作为机器人的QQ号：'
-$qqpassword = Read-Host '请输入作为机器人的QQ密码：'
+$qqpassword = Read-Host -AsSecureString '请输入作为机器人的QQ密码：'
 
 # 创建运行目录
 New-Item -Path .\qqbot -ItemType Directory
