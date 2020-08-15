@@ -105,7 +105,8 @@ New-Item -Path .\mirai\plugins\CQHTTPMirai\setting.yml -ItemType File -Value @"
 "@
 
 # 写入 miraiOK 配置文件
-New-Item -Path .\mirai\config.txt -ItemType File -Value "----------`nlogin ${qqid} ${qqpassword}`n"
+$realpassword = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($qqpassword))
+New-Item -Path .\mirai\config.txt -ItemType File -Value "----------`nlogin ${qqid} ${realpassword}`n"
 
 # 写入 HoshinoBot 配置文件
 Add-Content .\HoshinoBot\hoshino\config\__bot__.py "`r`nACCESS_TOKEN='${token}'`r`n"
