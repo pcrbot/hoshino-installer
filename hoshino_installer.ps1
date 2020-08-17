@@ -78,8 +78,8 @@ if ($install_git) {
     $env:Path += ";C:\Program Files\Git\bin"  # 添加 git 环境变量
     Write-Output "git 安装成功"
 }
-Invoke-WebRequest https://get.yobot.win/scyb/miraiOK_win_amd64.exe -OutFile .\mirai\miraiOK.exe
-Invoke-WebRequest https://get.yobot.win/scyb/cqhttp-mirai-0.1.9-all.jar -OutFile .\mirai\plugins\cqhttp-mirai-0.1.9-all.jar
+Invoke-WebRequest http://t.imlxy.net:64724/mirai/MiraiOK/miraiOK_windows_amd64.exe -OutFile .\mirai\miraiOK.exe
+Invoke-WebRequest https://download.fastgit.org/yyuueexxiinngg/cqhttp-mirai/releases/download/0.2.1/cqhttp-mirai-0.2.1-all.jar -OutFile .\mirai\plugins\cqhttp-mirai-0.2.1-all.jar
 
 # 下载源码
 git clone https://github.com/Ice-Cirno/HoshinoBot.git --depth=1
