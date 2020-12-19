@@ -13,11 +13,6 @@ if [ $EUID -ne 0 ]; then
     exit
 fi
 
-if [ -z "$(command -v wget)" ]; then
-    echo "wget not found, install wget first"
-    exit 1
-fi
-
 echo "
 yobot-gocqhttp installer script
 What will it do:
@@ -47,16 +42,15 @@ fi
 
 access_token="$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1)"
 
-wget https://down.yobot.club/images/hyg.tar.gz
-gzip -d hyg.tar.gz
-docker load -i hyg.tar
-rm hyg.tar
+docker pull pcrbot/hoshinobot
+docker pull pcrbot/gocqhttp:0.9.29-fix2
+docker pull yobot/yobot:pypy
 
-docker network create qqbot
+docker network create qqbot || true
 
 mkdir yobot_data gocqhttp_data
 
-docker run --rm -v ${PWD}:/tmp/Hoshino hoshinobot mv /HoshinoBot/ /tmp/Hoshino/Hoshino
+docker run --rm -v ${PWD}:/tmp/Hoshino pcrbot/hoshinobot mv /HoshinoBot/ /tmp/Hoshino/Hoshino
 echo "HOST = '0.0.0.0'">>Hoshino/hoshino/config/__bot__.py
 echo "ACCESS_TOKEN = '${access_token}'">>Hoshino/hoshino/config/__bot__.py
 
@@ -113,7 +107,7 @@ docker run -d \
            -v ${PWD}/Hoshino:/HoshinoBot \
            --name hoshino \
            --network qqbot \
-           hoshinobot
+           pcrbot/hoshinobot
 
 echo "starting yobot"
 docker run -d \
@@ -130,4 +124,4 @@ docker run -it \
            -v ${PWD}/Hoshino:/HoshinoBot \
            --name gocqhttp \
            --network qqbot \
-           gocqhttp:0.9.31-fix2
+           pcrbot/gocqhttp:0.9.29-fix2
